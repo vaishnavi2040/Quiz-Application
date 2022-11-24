@@ -1,0 +1,119 @@
+{% extends 'base_student.html' %} {% load static %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Attendance Dashboard | By Code Info</title> -->
+{% block css %}
+<!-- <link rel="stylesheet" href="{% static '/css/dashboard_student.css' %}" /> -->
+<!-- Font Awesome Cdn Link -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/> -->
+{% endblock %}
+<!-- <style>
+    
+    .topnav {
+      background-color: #333;
+      overflow: hidden;
+      
+    } -->
+
+{% block content %}
+<div class="container">
+  <section class="main">
+    
+
+    <h1>Live Quiz</h1>
+
+    <div class="users">
+      <div style="display: flex; flex-direction: row; flex-wrap: wrap">
+        {% for quiz in quizs %}
+        
+          <div class="card m-3">
+            <div class="card-body">
+              <h5 class="card-title text-capitalize">{{ quiz.name }}</h5>
+              <p class="card-text">Time: {{quiz.time}}</p>
+              <a
+                href="{% url 'quizQuestions' quiz.id %}"
+                class="btn btn-outline-dark"
+                >Start Quiz</a
+              >
+            </div>
+         </div>
+        
+        <!-- 
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ quiz.name }}</h5>
+              <p class="card-text">{{quiz.time}}</p>
+              
+              <a href="{% url 'quizQuestions' quiz.id %}" class="btn btn-primary">Start Quiz</a>
+            </div>
+          </div>
+        </div>
+         -->
+
+        <!-- <div class="card">
+        <img src="/static/images/python.png">
+        <h4>{{ quiz.name }}</h4>
+        <div class="per">
+          <table>
+            <tr>
+              <td><span>{{quiz.time}}</span></td>
+              <td><span>20 questions</span></td>
+            </tr>
+            <tr>
+              <td>Time</td>
+              <td>Questions</td>
+            </tr>
+          </table>
+        </div>
+        <a href="{% url 'quizQuestions' quiz.id %}" class="btn btn-primary" >Start quiz</a>
+        <button >Start Quiz</button> 
+      </div> -->
+
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock %}
+
+<!-- 
+<div class="container">
+  <nav>
+    <ul>
+      <li><a href="#" class="logo">
+        <img src="/static/images/quiz.jpg">
+        <span class="nav-item">Home</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-menorah"></i>
+        <span class="nav-item">Dashboard</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-comment"></i>
+        <span class="nav-item">Message</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-database"></i>
+        <span class="nav-item">Report</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-chart-bar"></i>
+        <span class="nav-item">Attendance</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-cog"></i>
+        <span class="nav-item">Setting</span>
+      </a></li>
+
+      <li><a href="#" class="logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="nav-item">Log out</span>
+      </a></li>
+    </ul>
+  </nav> -->

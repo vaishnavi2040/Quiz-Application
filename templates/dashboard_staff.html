@@ -1,0 +1,66 @@
+{% extends 'base_staff.html' %} {% load static %}
+{% block content %}
+<div class="row">
+
+<div class="card text-white  m-3" style="max-width: 18rem; background-color:#435d7d">
+  <div class="card-header h2">Students</div>
+  <div class="card-body">
+    <h5 class="card-title">Total Number of Students : {{student}}</h5>
+    <p class="card-text"></p>
+    <a class="btn btn-dark" href="{% url 'student_List'%}" >Manage students</a>
+    
+    </div>
+    
+</div>
+
+<div class="card text-white  m-3" style="max-width: 18rem; background-color:#435d7d">
+  <div class="card-header h2">Quiz</div>
+  <div class="card-body">
+    <h5 class="card-title">Total Number of Quizzes: {{quiz}}</h5>
+    <p class="card-text"></p>
+    <a class="btn btn-dark" href="{% url 'quiz_List_staff' %}" >Manage Quizes</a>
+    
+    </div>
+    
+</div>
+
+<div class="card text-white  m-3" style="max-width: 18rem; background-color:#435d7d">
+  <div class="card-header h2"> Results</div>
+  <div class="card-body">
+    <h5 class="card-title">Total Number of Results : {{result}}</h5>
+    <p class="card-text"></p>
+    <a class="btn btn-dark" href="{% url 'Result_List'%}">View Results</a>
+    
+    </div>
+    
+</div>
+
+<div class="card text-white  m-3" style="max-width: 18rem; background-color:#435d7d
+">
+  <div class="card-header h2">Questions</div>
+  <div class="card-body">
+    <h5 class="card-title">Total Number of Questions : {{ques}}</h5>
+    <p class="card-text"></p>
+    <a class="btn btn-dark" href="{% url 'question_List_staff' %}" >Manage Questions</a>
+    
+    </div>
+    
+</div>
+
+<div class="card text-white  m-3" style="max-width: 18rem; background-color:#435d7d">
+  <div class="card-header h2">Feedback</div>
+  <div class="card-body">
+    <h5 class="card-title">Total Number of Feedback : {{fed}}</h5>
+    <p class="card-text"></p>
+    <a class="btn btn-dark" href="{% url 'feedback_List'%}" >Manage Feedback</a>
+    
+    </div>
+    
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

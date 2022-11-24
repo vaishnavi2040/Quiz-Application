@@ -1,0 +1,149 @@
+{% extends 'base_staff.html' %} 
+{% load static %} 
+{% load widget_tweaks %}
+{% load bootstrap3 %}
+
+{%block content%}
+
+
+<div class="container card p-3  mt-5">
+
+<form enctype="multipart/form-data" class="container" method="post" id="question_form">
+    {% csrf_token %}
+    <!-- main form start --- in our case product form -->
+    <div class="card">
+        <div class="card-header card-header-secondary">
+            <h4 class="card-title">Add Question</h4>
+        </div>
+        {% for field in form %}
+            <div class="form-group card-body">
+            <div class="row">
+					<div class="col-md-3">{% bootstrap_label field.label %}</div>
+					<div class="col-md-8">{% bootstrap_field field show_label=False %}</div>
+				</div>
+        
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <!-- main form end --- in our case product form -->
+
+    <!-- inline form for Images start -->
+
+    <!-- EXPLAINING with named_formsets.images as formset -->
+    <!-- Note: named_formsets is used in get_context_data function in views.py -->
+    <!-- Note: here images is our ImageFormSet name, used in get_named_formsets function in views.py -->
+    {% with named_formsets.answers as formset %}  
+        {{ formset.management_form }}
+        <script type="text/html" id="answers-template">   // id="inlineformsetname-template"
+            <tr id="answers-__prefix__" class= hide_all>  // id="inlineformsetname-__prefix__"
+                {% for fields in formset.empty_form.hidden_fields %}
+                    {{ fields }}
+                {% endfor %}
+            
+                {% for fields in formset.empty_form.visible_fields %}
+                    <td>{{fields}}</td>
+                {% endfor %}
+            </tr>
+        </script>
+
+        <div class="table-responsive card mt-4">
+            <div class="card-header card-header-secondary">
+                <h4 class="card-title">Add Answers</h4>
+            </div>
+            <table class="table card-body">
+                <thead class="text-secondary">
+                    <th>text <span style="color: red;" class="required">*</span></th>
+                    <th>is_correct <span style="color: red;" class="required">*</span></th>
+                    <th>Delete?</th>
+                    <th>Custom Delete btn</th>
+                </thead>
+                <tbody id="item-answers">  <!-- id="item-inlineformsetname" -->
+                    {% for formss in formset %}
+                        {{ formss.management_form }}
+                        <tr id="answers-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
+                            {{ formss.id }}
+                            {% for field in formss.visible_fields %}
+                                <td>
+                                    {{field}}
+
+                                    {% for error in field.errors %}
+                                        <span style="color: red">{{ error }}</span>
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            <!-- delete code -->
+                            {% if formss.instance.pk %}
+                                <td>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{formss.instance.pk}}">
+                                        Delete
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are Your Sure You Want To Delete This?</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{% url 'delete_answer' formss.instance.pk %}" type="button" class="btn btn-primary">Yes, Delete</a>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </td>            
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+           
+            <a href="#" id="add-answer-button" class="btn btn-primary add-answers">Add More</a> <!-- id="add-inlineformsetname-button" -->
+        
+        </div>
+    {% endwith %}
+    <!-- inline form for Images end -->
+
+    <!-- inline form for Variant start -->
+
+    <!-- EXPLAINING with named_formsets.variants as formset -->
+    <!-- Note: named_formsets is used in get_context_data function in views.py -->
+    <!-- Note: here variants is our VariantFormSet name, used in get_named_formsets function in views.py -->
+     <!-- inline form for Images end -->
+
+        <div class="form-group mt-5">
+            <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+        </div>
+</form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+        // when user clicks add more btn of images
+      $('.add-answers').click(function(ev) {
+          ev.preventDefault();
+          var count = $('#item-answers').children().length;
+          var tmplMarkup = $('#answers-template').html();
+          var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+          $('#item-answers').append(compiledTmpl);
+  
+          // update form count
+          $('#id_answers-TOTAL_FORMS').attr('value', count+1);
+      });
+  });
+
+</script>
+
+
+
+
+
+{% endblock %}

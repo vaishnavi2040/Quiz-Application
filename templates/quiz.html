@@ -1,0 +1,45 @@
+{% extends "base_student.html" %}
+{% load static %}
+
+{% block tittle %}
+
+{% endblock tittle %}
+
+ {% block scripts %}
+<script src="{%static 'js/quiz.js' %}" ></script>
+
+{% endblock scripts %} 
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <h1>{{obj.name}}</h1>
+        
+    </div >
+    
+    <div class=" card col-3 p-3 text-center bg-info text-white" style="width: 13rem;" id="timer-box"></div>
+</div>
+
+{% comment %} {% if messages %}
+
+
+<ul class="messages">
+   {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }}</li>
+
+  {% endfor %}
+ </ul> 
+    {% endif %} {% endcomment %}
+
+<form id="quiz-form" class="mt-3 mb-3">
+{% csrf_token %}
+
+<div  class="card  shadow p-3 mb-5 bg-body rounded" id="quiz-box"></div>
+
+
+
+<button type="submit" class="btn btn-primary mt-3">submit</button>
+</form>
+
+{% endblock content %} 

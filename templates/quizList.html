@@ -1,0 +1,193 @@
+{% extends "base_student.html" %}
+ {% load static %}
+  {% block tittle %} Home 
+  {%endblock tittle %} 
+
+    {%block css%}
+    style=
+    card {display:inline-block;}
+     <link
+      rel="stylesheet"
+      href="{%static 'css/view_studentList_staff.css' %}"
+    />
+    {%endblock css%}
+
+  {% block scripts %}
+<script src="{%static 'js/quizList.js' %}"></script>
+
+{% endblock scripts %} 
+{% block content %}
+
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+     <a href="https://www.google.com" ><img  src="{% static '/images/1.png' %}" class="d-block w-100" alt=""></a>
+    </div>
+    <div class="carousel-item">
+     <a href="https://www.google.com" > <img src="{% static '/images/2.png' %}" class="d-block w-100" alt=""></a>
+    </div>
+    <div class="carousel-item">
+     <a href="https://www.google.com" > <img src="{% static '/images/3.png' %}" class="d-block w-100" alt=""></a>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="quizStartModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Start Quiz?</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" id="modal-body-confirm"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          No
+        </button>
+        <button type="button" id="start" class="btn btn-success">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+ <div class="container">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h1><b>Live Quizzes</b></h1>
+            </div>
+            <div class="col-sm-6">
+			
+
+            </div>
+           
+        
+            </div>
+			
+          </div>
+       
+
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>
+               S.No
+              </th>
+              <th>Quiz Name</th>
+              <th>Quiz subject</th>
+              <th>Number of questions</th>
+              <th>Time</th>
+              <th>Difficulty</th> 
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for obj in quiz %}
+            <tr>
+              <td>
+                {{forloop.counter}}
+              </td>
+              <td>{{obj.name}}</td>
+              <td>{{obj.topic}}</td>
+             <td>{{obj.no_of_question}}</td>
+              <td>{{obj.time}}</td>
+              <td>{{obj.difficulty}}</td> 
+
+              <td>
+                 <button
+      type="button"
+      class="btn btn-outline-primary modal-button"
+      data-pk="{{obj.pk}}"
+      data-quiz="{{obj.name}}"
+      data-questions="{{obj.no_of_question}}"
+      data-difficulty="{{obj.difficulty}}"
+      data-time="{{obj.time}}"
+      data-bs-toggle="modal"
+      data-bs-target="#quizStartModal"
+    >
+      Start 
+    </button>
+              </td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+
+ 
+
+
+
+
+{% comment %} 
+
+<div class="h1">Quizes</div>
+<hr />
+
+
+
+
+
+
+
+<div class="row">
+
+
+{% for obj in quiz %}
+
+<div class="card col-2 shadow p-3 m-3 bg-body  ">
+  <div class="card-body">
+    <h5 class="card-title text-capitalize">{{ obj.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{obj.topic}}</h6>
+
+    <button
+      type="button"
+      class="btn btn-outline-dark modal-button"
+      data-pk="{{obj.pk}}"
+      data-quiz="{{obj.name}}"
+      data-questions="{{obj.no_of_question}}"
+      data-difficulty="{{obj.difficulty}}"
+      data-time="{{obj.time}}"
+      data-bs-toggle="modal"
+      data-bs-target="#quizStartModal"
+    >
+      Start Quiz
+    </button>
+  </div> 
+</div>
+
+
+
+    {% endfor %}
+    </div> {% endcomment %}
+
+     {% endblock content %}
+
